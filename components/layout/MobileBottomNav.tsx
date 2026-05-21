@@ -1,38 +1,37 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Users, MessageCircle, Bell, User } from 'lucide-react';
-import { currentUser } from "../../lib/mockData";
+import { usePathname } from "next/navigation";
+import { Home, Users, Bell, MessageCircle, ShoppingBag } from 'lucide-react';
 
 const navItems = [
   { href: "/", icon: Home, label: "Home" },
   { href: "/friends", icon: Users, label: "Friends" },
-  { href: "/messages", icon: MessageCircle, label: "Messages", badge: 4 },
-  { href: "/notifications", icon: Bell, label: "Notifications", badge: 3 },
-  { href: "/profile/" + currentUser.id, icon: User, label: "Profile" },
+  { href: "/messages", icon: MessageCircle, label: "Messages" },
+  { href: "/notifications", icon: Bell, label: "Notifications" },
+  { href: "/marketplace", icon: ShoppingBag, label: "Marketplace" },
 ];
 
 export default function MobileBottomNav() {
+  const pathname = usePathname();
+
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 mobile-nav-safe">
-      <div className="flex items-center justify-around h-14">
-        {navItems.map((item) => (
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 flex md:hidden">
+      {navItems.map(({ href, icon: Icon, label }) => {
+        const isActive = pathname === href;
+        return (
           <Link
-            key={item.label}
-            href={item.href}
-            className="relative flex flex-col items-center justify-center flex-1 h-full text-[#65676B] hover:text-[#1877F2] transition-colors"
+            key={href}
+            href={href}
+            className={`flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition-colors ${
+              isActive ? "text-[#1877F2]" : "text-[#65676B] hover:text-[#050505]"
+            }`}
           >
-            <div className="relative">
-              <item.icon size={24} />
-              {item.badge && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
-                  {item.badge}
-                </span>
-              )}
-            </div>
+            <Icon size={22} />
+            <span className="text-[10px] font-medium">{label}</span>
           </Link>
-        ))}
-      </div>
+        );
+      })}
     </nav>
   );
 }

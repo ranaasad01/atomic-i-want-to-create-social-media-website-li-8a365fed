@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Navbar from "../../components/layout/Navbar";
 import LeftSidebar from "../../components/layout/LeftSidebar";
 import RightSidebar from "../../components/layout/RightSidebar";
 import MobileBottomNav from "../../components/layout/MobileBottomNav";
-import { Search } from 'lucide-react';
+import { Search, Plus } from 'lucide-react';
 
 const categories = ["All", "Vehicles", "Electronics", "Clothing", "Garden", "Furniture"];
 
@@ -48,6 +49,13 @@ export default function MarketplacePage() {
           <div className="mb-5">
             <h1 className="text-2xl font-bold text-[#050505]">Marketplace</h1>
             <p className="text-sm text-[#65676B] mt-0.5">Buy and sell items in your community</p>
+            <Link
+              href="/marketplace/sell"
+              className="inline-flex items-center gap-1.5 mt-3 bg-[#1877F2] hover:bg-[#166FE5] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+            >
+              <Plus size={16} />
+              Sell Something
+            </Link>
           </div>
 
           {/* Search Bar */}
@@ -71,7 +79,7 @@ export default function MarketplacePage() {
                 className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   activeCategory === cat
                     ? "bg-[#1877F2] text-white"
-                    : "bg-white text-[#050505] hover:bg-[#E4E6EB] border border-gray-200"
+                    : "bg-white text-[#050505] hover:bg-gray-100 border border-gray-200"
                 }`}
               >
                 {cat}
@@ -81,26 +89,29 @@ export default function MarketplacePage() {
 
           {/* Listings Grid */}
           {filtered.length === 0 ? (
-            <div className="text-center py-16 text-[#65676B]">
-              <p className="text-4xl mb-3">🔍</p>
-              <p className="font-semibold text-[#050505]">No listings found</p>
-              <p className="text-sm mt-1">Try a different search or category</p>
+            <div className="text-center py-16 text-[#65676B] text-sm">
+              No listings found.
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-3">
               {filtered.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer"
+                  className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
                 >
-                  <div className={`h-36 flex items-center justify-center text-5xl ${categoryColors[item.category] ?? "bg-gray-100"}`}>
+                  {/* Emoji thumbnail */}
+                  <div
+                    className={`w-full h-32 flex items-center justify-center text-5xl ${
+                      categoryColors[item.category] ?? "bg-gray-100"
+                    }`}
+                  >
                     {item.emoji}
                   </div>
                   <div className="p-3">
-                    <p className="font-bold text-[#050505] text-sm truncate">{item.title}</p>
+                    <p className="font-bold text-[#050505] text-sm leading-tight truncate">{item.title}</p>
                     <p className="text-[#1877F2] font-semibold text-sm mt-0.5">{item.price}</p>
                     <p className="text-xs text-[#65676B] mt-0.5 truncate">{item.location}</p>
-                    <p className="text-xs text-[#65676B] truncate">Seller: {item.seller}</p>
+                    <p className="text-xs text-[#65676B] truncate">by {item.seller}</p>
                   </div>
                 </div>
               ))}

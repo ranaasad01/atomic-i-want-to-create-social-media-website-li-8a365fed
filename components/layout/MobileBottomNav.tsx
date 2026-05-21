@@ -1,46 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Users, MessageCircle, Bell, ShoppingBag } from 'lucide-react';
+import { usePathname } from "next/navigation";
+import { Home, Users, Bell, MessageCircle, ShoppingBag } from 'lucide-react';
+
+const navItems = [
+  { href: "/", icon: Home, label: "Home" },
+  { href: "/friends", icon: Users, label: "Friends" },
+  { href: "/marketplace", icon: ShoppingBag, label: "Marketplace" },
+  { href: "/messages", icon: MessageCircle, label: "Messages" },
+  { href: "/notifications", icon: Bell, label: "Notifications" },
+];
 
 export default function MobileBottomNav() {
+  const pathname = usePathname();
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 flex md:hidden">
-      <Link
-        href="/"
-        className="flex flex-col items-center justify-center flex-1 py-2 text-[#1877F2] hover:bg-[#F0F2F5] transition-colors"
-      >
-        <Home size={22} />
-        <span className="text-xs mt-0.5">Home</span>
-      </Link>
-      <Link
-        href="/friends"
-        className="flex flex-col items-center justify-center flex-1 py-2 text-[#65676B] hover:bg-[#F0F2F5] transition-colors"
-      >
-        <Users size={22} />
-        <span className="text-xs mt-0.5">Friends</span>
-      </Link>
-      <Link
-        href="/messages"
-        className="relative flex flex-col items-center justify-center flex-1 py-2 text-[#65676B] hover:bg-[#F0F2F5] transition-colors"
-      >
-        <MessageCircle size={22} />
-        <span className="text-xs mt-0.5">Messages</span>
-      </Link>
-      <Link
-        href="/notifications"
-        className="relative flex flex-col items-center justify-center flex-1 py-2 text-[#65676B] hover:bg-[#F0F2F5] transition-colors"
-      >
-        <Bell size={22} />
-        <span className="text-xs mt-0.5">Alerts</span>
-      </Link>
-      <Link
-        href="/marketplace"
-        className="flex flex-col items-center justify-center flex-1 py-2 text-[#65676B] hover:bg-[#F0F2F5] transition-colors"
-      >
-        <ShoppingBag size={22} />
-        <span className="text-xs mt-0.5">Market</span>
-      </Link>
+      {navItems.map(({ href, icon: Icon, label }) => {
+        const isActive = pathname === href;
+        return (
+          <Link
+            key={href}
+            href={href}
+            className={`flex-1 flex flex-col items-center justify-center py-2 gap-0.5 transition-colors ${
+              isActive
+                ? "text-[#1877F2]"
+                : "text-[#65676B] hover:text-[#050505]"
+            }`}
+          >
+            <Icon size={22} />
+            <span className="text-[10px] font-medium">{label}</span>
+          </Link>
+        );
+      })}
     </nav>
   );
 }

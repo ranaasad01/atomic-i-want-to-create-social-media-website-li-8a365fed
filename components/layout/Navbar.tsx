@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Home, Users, MessageCircle, Bell, Search, Menu, X, Settings, LogOut, User, ChevronDown } from 'lucide-react';
+import { Home, Users, MessageCircle, Bell, Search, Menu, X, Settings, LogOut, User, ChevronDown, ShoppingBag } from 'lucide-react';
 import Avatar from "../ui/Avatar";
 import { currentUser } from "../../lib/mockData";
 
@@ -44,6 +44,9 @@ export default function Navbar() {
           <Link href="/friends" className="flex items-center justify-center w-12 h-10 rounded-lg hover:bg-[#F0F2F5] text-[#65676B] hover:text-[#050505] transition-colors" title="Friends">
             <Users size={22} />
           </Link>
+          <Link href="/marketplace" className="flex items-center justify-center w-12 h-10 rounded-lg hover:bg-[#F0F2F5] text-[#65676B] hover:text-[#050505] transition-colors" title="Marketplace">
+            <ShoppingBag size={22} />
+          </Link>
           <Link href="/messages" className="relative flex items-center justify-center w-12 h-10 rounded-lg hover:bg-[#F0F2F5] text-[#65676B] hover:text-[#050505] transition-colors" title="Messages">
             <MessageCircle size={22} />
             <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">4</span>
@@ -71,62 +74,79 @@ export default function Navbar() {
             </button>
 
             {showProfileMenu && (
-              <div className="absolute right-0 top-12 w-72 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
+              <div className="absolute right-0 top-full mt-1 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-1 z-50">
                 <Link
-                  href={"/profile/" + currentUser.id}
-                  className="flex items-center gap-3 px-4 py-3 hover:bg-[#F0F2F5] transition-colors"
+                  href="/profile"
+                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F0F2F5] transition-colors"
                   onClick={() => setShowProfileMenu(false)}
                 >
-                  <Avatar src={currentUser.avatar} alt={currentUser.name} size="lg" />
+                  <Avatar src={currentUser.avatar} alt={currentUser.name} size="sm" />
                   <div>
-                    <p className="font-semibold text-[#050505]">{currentUser.name}</p>
+                    <p className="font-semibold text-sm text-[#050505]">{currentUser.name}</p>
                     <p className="text-xs text-[#65676B]">View your profile</p>
                   </div>
                 </Link>
-                <div className="border-t border-gray-100 my-2" />
-                <Link href="/settings" className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F0F2F5] transition-colors text-sm" onClick={() => setShowProfileMenu(false)}>
-                  <div className="w-8 h-8 bg-[#E4E6EB] rounded-full flex items-center justify-center">
-                    <Settings size={16} />
-                  </div>
-                  <span>Settings & Privacy</span>
+                <div className="border-t border-gray-200 my-1" />
+                <Link
+                  href="/profile"
+                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F0F2F5] transition-colors text-sm text-[#050505]"
+                  onClick={() => setShowProfileMenu(false)}
+                >
+                  <User size={18} className="text-[#65676B]" />
+                  Profile
                 </Link>
-                <Link href="/login" className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F0F2F5] transition-colors text-sm" onClick={() => setShowProfileMenu(false)}>
-                  <div className="w-8 h-8 bg-[#E4E6EB] rounded-full flex items-center justify-center">
-                    <LogOut size={16} />
-                  </div>
-                  <span>Log Out</span>
+                <Link
+                  href="/settings"
+                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F0F2F5] transition-colors text-sm text-[#050505]"
+                  onClick={() => setShowProfileMenu(false)}
+                >
+                  <Settings size={18} className="text-[#65676B]" />
+                  Settings
                 </Link>
+                <div className="border-t border-gray-200 my-1" />
+                <button
+                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#F0F2F5] transition-colors text-sm text-[#050505] w-full text-left"
+                  onClick={() => setShowProfileMenu(false)}
+                >
+                  <LogOut size={18} className="text-[#65676B]" />
+                  Log Out
+                </button>
               </div>
             )}
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu Button */}
           <button
             className="md:hidden flex items-center justify-center w-9 h-9 bg-[#F0F2F5] rounded-full hover:bg-[#E4E6EB] transition-colors"
             onClick={() => setShowMobileMenu(!showMobileMenu)}
           >
-            {showMobileMenu ? <X size={18} /> : <Menu size={18} />}
+            {showMobileMenu ? <X size={18} className="text-[#050505]" /> : <Menu size={18} className="text-[#050505]" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {showMobileMenu && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 py-3 flex flex-col gap-1">
-          <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F0F2F5] text-sm font-medium" onClick={() => setShowMobileMenu(false)}>
-            <Home size={20} className="text-[#1877F2]" /> Home
+        <div className="md:hidden bg-white border-t border-gray-200 px-4 py-3 flex flex-col gap-1">
+          <Link href="/" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F0F2F5] transition-colors" onClick={() => setShowMobileMenu(false)}>
+            <Home size={20} className="text-[#65676B]" />
+            <span className="text-sm font-medium text-[#050505]">Home</span>
           </Link>
-          <Link href="/friends" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F0F2F5] text-sm font-medium" onClick={() => setShowMobileMenu(false)}>
-            <Users size={20} className="text-[#1877F2]" /> Friends
+          <Link href="/friends" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F0F2F5] transition-colors" onClick={() => setShowMobileMenu(false)}>
+            <Users size={20} className="text-[#65676B]" />
+            <span className="text-sm font-medium text-[#050505]">Friends</span>
           </Link>
-          <Link href="/messages" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F0F2F5] text-sm font-medium" onClick={() => setShowMobileMenu(false)}>
-            <MessageCircle size={20} className="text-[#1877F2]" /> Messages
+          <Link href="/marketplace" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F0F2F5] transition-colors" onClick={() => setShowMobileMenu(false)}>
+            <ShoppingBag size={20} className="text-[#65676B]" />
+            <span className="text-sm font-medium text-[#050505]">Marketplace</span>
           </Link>
-          <Link href="/notifications" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F0F2F5] text-sm font-medium" onClick={() => setShowMobileMenu(false)}>
-            <Bell size={20} className="text-[#1877F2]" /> Notifications
+          <Link href="/messages" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F0F2F5] transition-colors" onClick={() => setShowMobileMenu(false)}>
+            <MessageCircle size={20} className="text-[#65676B]" />
+            <span className="text-sm font-medium text-[#050505]">Messages</span>
           </Link>
-          <Link href="/settings" className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-[#F0F2F5] text-sm font-medium" onClick={() => setShowMobileMenu(false)}>
-            <Settings size={20} className="text-[#1877F2]" /> Settings
+          <Link href="/notifications" className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#F0F2F5] transition-colors" onClick={() => setShowMobileMenu(false)}>
+            <Bell size={20} className="text-[#65676B]" />
+            <span className="text-sm font-medium text-[#050505]">Notifications</span>
           </Link>
         </div>
       )}

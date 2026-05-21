@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, Users, MessageCircle, Bell, Bookmark, Calendar, Settings, ShoppingBag } from 'lucide-react';
+import { Home, Users, MessageCircle, Bell, Bookmark, Settings, ChevronRight, ShoppingBag } from 'lucide-react';
 import Avatar from "../ui/Avatar";
 import { currentUser } from "../../lib/mockData";
 
@@ -11,8 +11,7 @@ const navItems = [
   { href: "/messages", icon: MessageCircle, label: "Messages" },
   { href: "/notifications", icon: Bell, label: "Notifications" },
   { href: "/marketplace", icon: ShoppingBag, label: "Marketplace" },
-  { href: "/bookmarks", icon: Bookmark, label: "Bookmarks" },
-  { href: "/events", icon: Calendar, label: "Events" },
+  { href: "/saved", icon: Bookmark, label: "Saved" },
   { href: "/settings", icon: Settings, label: "Settings" },
 ];
 
@@ -34,17 +33,31 @@ export default function LeftSidebar() {
           <Link
             key={href}
             href={href}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#E4E6EB] transition-colors text-[#050505]"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#E4E6EB] transition-colors group"
           >
-            <Icon size={22} className="text-[#1877F2] flex-shrink-0" />
-            <span className="font-medium text-sm">{label}</span>
+            <div className="w-9 h-9 bg-[#E4E6EB] group-hover:bg-[#D8DADF] rounded-full flex items-center justify-center flex-shrink-0 transition-colors">
+              <Icon size={20} className="text-[#050505]" />
+            </div>
+            <span className="font-medium text-[#050505] text-sm">{label}</span>
           </Link>
         ))}
       </nav>
 
-      <div className="mt-auto px-3 pt-4 border-t border-gray-300">
-        <p className="text-xs text-[#65676B]">
-          © 2024 SocialConnect · Privacy · Terms
+      {/* Divider */}
+      <div className="border-t border-gray-300 my-3 mx-3" />
+
+      {/* See More */}
+      <button className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#E4E6EB] transition-colors w-full">
+        <div className="w-9 h-9 bg-[#E4E6EB] rounded-full flex items-center justify-center flex-shrink-0">
+          <ChevronRight size={20} className="text-[#050505]" />
+        </div>
+        <span className="font-medium text-[#050505] text-sm">See More</span>
+      </button>
+
+      {/* Footer */}
+      <div className="mt-auto px-3 pt-4">
+        <p className="text-xs text-[#65676B] leading-relaxed">
+          Privacy · Terms · Advertising · Cookies · More · SocialConnect © 2024
         </p>
       </div>
     </aside>

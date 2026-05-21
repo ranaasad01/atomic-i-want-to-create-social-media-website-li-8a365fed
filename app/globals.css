@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --fb-blue: #1877F2;
+  --fb-blue-dark: #166FE5;
+  --fb-bg: #F0F2F5;
+  --fb-white: #FFFFFF;
+  --fb-text: #050505;
+  --fb-text-secondary: #65676B;
+  --fb-border: #CED0D4;
+  --fb-hover: #F2F2F2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--fb-bg);
+  color: var(--fb-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CED0D4;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B0B3B8;
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Story gradient */
+.story-gradient {
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7) 100%);
+}
+
+/* Message bubble */
+.message-sent {
+  background: var(--fb-blue);
+  color: white;
+  border-radius: 18px 18px 4px 18px;
+}
+
+.message-received {
+  background: #E4E6EB;
+  color: var(--fb-text);
+  border-radius: 18px 18px 18px 4px;
+}
+
+/* Post card hover */
+.post-action-btn:hover {
+  background-color: var(--fb-hover);
+}
+
+/* Notification dot */
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--fb-blue);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Focus styles */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  ring: 2px solid var(--fb-blue);
+}
+
+/* Avatar ring */
+.avatar-ring {
+  ring: 3px solid var(--fb-blue);
+  ring-offset: 2px;
+}
+
+/* Animated like */
+@keyframes likeAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.like-animate {
+  animation: likeAnimation 0.3s ease-in-out;
+}
+
+/* Story progress bar */
+@keyframes progressBar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.story-progress {
+  animation: progressBar 5s linear forwards;
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Mobile bottom nav safe area */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-nav-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
